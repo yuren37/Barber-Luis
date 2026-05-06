@@ -1,0 +1,2367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>Barber Luis — Barbería Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #080808;
+            --bg2: #101010;
+            --bg3: #161616;
+            --card: #1c1c1c;
+            --border: #2a2a2a;
+            --gold: #c8993a;
+            --gold-lt: #e0b95a;
+            --gold-dk: #9a7228;
+            --text: #f0ede6;
+            --muted: #888880;
+            --danger: #e05252;
+            --success: #52c87a;
+            --radius: 12px;
+            --nav-h: 64px;
+            --bot-h: 68px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        img {
+            display: block;
+            width: 100%;
+            object-fit: cover;
+        }
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            outline: none;
+        }
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 8px;
+            padding: 12px 14px;
+            width: 100%;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--gold);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* ─── TOP NAV ─── */
+        #top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-h);
+            background: rgba(8, 8, 8, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 900;
+        }
+        .nav-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* ─── ESPACIO PARA EL LOGO ─── */
+        /* 📌 INSTRUCCIONES PARA PONER TU LOGO:
+        *  1. Guarda la imagen de tu logo (PNG o JPG) en la misma carpeta que este archivo,
+        *     o súbela a internet y copia la URL.
+        *  2. Si usas archivo local, renómbralo a "logo-barberluis.png" y colócalo junto a este HTML.
+        *  3. Luego DESCOMENTA la línea del <img> que está justo debajo de este comentario en el HTML
+        *     (busca el div con clase "nav-logo-img") y BORRA el <span> que dice "🪒".
+        *  4. Si usas una URL externa, cambia el src por la URL de tu imagen.
+        *  Tamaño recomendado: 80x80 px (se escala automáticamente a 38x38 px).
+        */
+        .nav-logo-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--bg3);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--muted);
+            transition: border-color 0.3s;
+        }
+        .nav-logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .nav-logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .nav-logo-text span:first-child {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .nav-logo-text span:last-child {
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-btn-cita {
+            background: var(--gold);
+            color: #080808;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border-radius: 100px;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .nav-btn-cita:active {
+            transform: scale(0.97);
+        }
+
+        /* ─── BOTTOM NAV ─── */
+        #bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--bot-h);
+            background: rgba(10, 10, 10, 0.96);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+            z-index: 900;
+        }
+        .bnav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            padding: 6px 4px;
+            cursor: pointer;
+            transition: color 0.2s;
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .bnav-item.active {
+            color: var(--gold);
+        }
+        .bnav-item svg {
+            width: 22px;
+            height: 22px;
+            stroke-width: 1.5;
+        }
+
+        /* ─── PAGES ─── */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: var(--nav-h);
+            padding-bottom: calc(var(--bot-h) + 16px);
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* ══════════════════════════════════════
+           HOME PAGE
+        ══════════════════════════════════════ */
+
+        /* HERO */
+       .hero {
+    position: relative;
+    height: calc(100svh - var(--nav-h));
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+}
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(8, 8, 8, 1) 0%, rgba(8, 8, 8, 0.5) 50%, rgba(8, 8, 8, 0.1) 100%);
+    z-index: 1;
+}
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 24px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+        .hero-tag::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+        }
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(52px, 14vw, 72px);
+            font-weight: 300;
+            line-height: 0.95;
+            letter-spacing: -1px;
+        }
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        .hero-sub {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 300px;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: #080808;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 14px 28px;
+            border-radius: 100px;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 14px 24px;
+            border-radius: 100px;
+            transition: border-color 0.2s;
+        }
+        .btn-outline:active {
+            border-color: var(--gold);
+        }
+
+        /* CARRUSEL (reemplaza al strip) */
+        .carousel-section {
+            padding: 40px 0 0;
+        }
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 0;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+      .carousel-slide {
+    flex: 0 0 100%;
+    height: 380px;
+    position: relative;
+    overflow: hidden;
+}
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+}
+.carousel-slide video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+.carousel-slide:hover img {
+    transform: scale(1.04);
+}
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 0 0;
+        }
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .carousel-dot.active {
+            background: var(--gold);
+            width: 24px;
+            border-radius: 4px;
+        }
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .carousel-arrow:active {
+            background: rgba(200, 153, 58, 0.5);
+            border-color: var(--gold);
+        }
+        .carousel-arrow.prev {
+            left: 12px;
+        }
+        .carousel-arrow.next {
+            right: 12px;
+        }
+
+        /* ABOUT */
+        .about {
+            padding: 60px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: var(--gold);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            max-width: 80px;
+        }
+        .about-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 38px;
+            font-weight: 300;
+            line-height: 1.1;
+        }
+        .about-title strong {
+            font-weight: 600;
+            color: var(--gold);
+        }
+        .about-body {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+        .about-img {
+            height: 300px;
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        /* MAGAZINE FEATURE */
+        .mag-feature {
+            margin: 0 24px 60px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+        }
+        .mag-feature-img {
+            height: 260px;
+            position: relative;
+            overflow: hidden;
+        }
+        .mag-feature-img img {
+            height: 100%;
+            object-fit: cover;
+        }
+        .mag-feature-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(8, 8, 8, 0.9));
+        }
+        .mag-feature-body {
+            padding: 24px;
+            background: var(--bg2);
+        }
+        .mag-issue {
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .mag-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+        .mag-body {
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        /* SERVICES PREVIEW */
+        .services-preview {
+            padding: 0 24px 60px;
+        }
+        .services-preview-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-top: 24px;
+        }
+        .sp-row {
+            background: var(--bg2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sp-row:active {
+            background: var(--bg3);
+        }
+        .sp-name {
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .sp-price {
+            color: var(--gold);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* ══════════════════════════════════════
+           RESEÑAS / COMENTARIOS REALES
+        ══════════════════════════════════════ */
+        .reviews-section {
+            padding: 0 24px 60px;
+        }
+        .review-form-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .review-form-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .star-rating-input {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+        .star-rating-input input {
+            display: none;
+        }
+        .star-rating-input label {
+            font-size: 28px;
+            color: var(--border);
+            cursor: pointer;
+            transition: color 0.2s;
+            user-select: none;
+        }
+        .star-rating-input label:hover,
+        .star-rating-input label:hover~label,
+        .star-rating-input input:checked~label {
+            color: var(--gold);
+        }
+        .btn-submit-review {
+            background: var(--gold);
+            color: #080808;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border-radius: 100px;
+            width: 100%;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .btn-submit-review:active {
+            background: var(--gold-dk);
+        }
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .review-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+        }
+        .review-stars {
+            color: var(--gold);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .review-text {
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--muted);
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .review-author {
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--text);
+            text-transform: uppercase;
+        }
+        .review-date {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+        .review-delete-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(224, 82, 82, 0.15);
+            border: none;
+            color: var(--danger);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .admin-mode .review-delete-btn {
+            display: flex;
+        }
+
+        /* ══════════════════════════════════════
+           SERVICES PAGE
+        ══════════════════════════════════════ */
+        #page-services {
+            padding-top: calc(var(--nav-h) + 24px);
+        }
+        .page-header {
+            padding: 0 24px 32px;
+        }
+        .page-header-label {
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .page-header-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 300;
+            line-height: 1;
+        }
+        .page-header-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        .page-header-sub {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-top: 12px;
+        }
+        .services-list {
+            padding: 0 24px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .service-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .service-card-img {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card-img img {
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        .service-card:hover .service-card-img img {
+            transform: scale(1.04);
+        }
+        .service-card-body {
+            padding: 20px;
+        }
+        .service-card-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .service-card-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .service-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .service-price {
+            color: var(--gold);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .btn-book {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 100px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .btn-book:active {
+            background: var(--gold);
+            color: #080808;
+        }
+
+        /* ══════════════════════════════════════
+           STORE PAGE (ahora usa iframe de Treinta)
+        ══════════════════════════════════════ */
+        #page-store {
+            padding-top: calc(var(--nav-h) + 0px);
+        }
+        .store-iframe-wrapper {
+            position: relative;
+            width: 100%;
+            height: calc(100svh - var(--nav-h) - var(--bot-h));
+            background: #fff;
+            border-radius: 0;
+            overflow: hidden;
+        }
+        .store-iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .store-back-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: var(--nav-h);
+            z-index: 5;
+        }
+        .btn-back-store {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 12px;
+            padding: 8px 16px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .btn-back-store:hover {
+            border-color: var(--gold);
+        }
+        .store-external-link {
+            margin-left: auto;
+            font-size: 11px;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ══════════════════════════════════════
+           APPOINTMENT PAGE
+        ══════════════════════════════════════ */
+        #page-appointment {
+            padding-top: calc(var(--nav-h) + 24px);
+        }
+        .appointment-body {
+            padding: 0 24px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .appt-wa-banner {
+            background: linear-gradient(135deg, #128c7e, #075e54);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+        }
+        .appt-wa-icon {
+            width: 56px;
+            height: 56px;
+        }
+        .appt-wa-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 600;
+        }
+        .appt-wa-sub {
+            font-size: 13px;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
+        .btn-whatsapp {
+            background: #25d366;
+            color: #080808;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 14px 32px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: filter 0.2s;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-whatsapp:active {
+            filter: brightness(1.15);
+        }
+        .appt-form-section {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+        .appt-form-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .form-label {
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+        .btn-send {
+            background: var(--gold);
+            color: #080808;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 15px;
+            border-radius: 100px;
+            width: 100%;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .appt-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .appt-info-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .appt-info-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .appt-info-label {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .appt-info-val {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* ══════════════════════════════════════
+           ADMIN PAGE (oculta del nav público)
+        ══════════════════════════════════════ */
+        #page-admin {
+            padding-top: calc(var(--nav-h) + 0px);
+        }
+        .admin-login {
+            min-height: calc(100svh - var(--nav-h) - var(--bot-h));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+        .admin-login-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .admin-login-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 300;
+            margin-bottom: 32px;
+        }
+        .login-box {
+            width: 100%;
+            max-width: 360px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .login-err {
+            background: rgba(224, 82, 82, 0.15);
+            border: 1px solid rgba(224, 82, 82, 0.3);
+            color: #e05252;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            display: none;
+        }
+        .login-ip-info {
+            font-size: 10px;
+            color: var(--muted);
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .btn-login {
+            background: var(--gold);
+            color: #080808;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 14px;
+            border-radius: 100px;
+            width: 100%;
+        }
+        .admin-dash {
+            display: none;
+        }
+        .admin-dash.visible {
+            display: block;
+        }
+        .admin-topbar {
+            position: sticky;
+            top: var(--nav-h);
+            z-index: 50;
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .admin-topbar-title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .admin-topbar-ip {
+            font-size: 10px;
+            color: var(--muted);
+        }
+        .btn-logout {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 1px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        .admin-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg2);
+            position: sticky;
+            top: calc(var(--nav-h) + 49px);
+            z-index: 49;
+        }
+        .admin-tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        .admin-tab.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+        .admin-content {
+            padding: 20px 16px 40px;
+        }
+        .admin-section {
+            display: none;
+        }
+        .admin-section.active {
+            display: block;
+        }
+        .admin-add-btn {
+            background: var(--gold);
+            color: #080808;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .admin-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .admin-item {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .admin-item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--bg3);
+        }
+        .admin-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .admin-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .admin-item-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .admin-item-price {
+            color: var(--gold);
+            font-size: 13px;
+        }
+        .admin-item-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .btn-edit,
+        .btn-del {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-edit {
+            background: rgba(200, 153, 58, 0.15);
+            color: var(--gold);
+        }
+        .btn-del {
+            background: rgba(224, 82, 82, 0.12);
+            color: var(--danger);
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .modal-overlay.open {
+            display: flex;
+        }
+        .modal {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 20px 20px 0 0;
+            padding: 28px 20px 40px;
+            width: 100%;
+            max-width: 480px;
+            max-height: 90svh;
+            overflow-y: auto;
+            animation: slideUp 0.25s ease;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 18px;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .btn-cancel {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+            padding: 13px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-save {
+            flex: 2;
+            background: var(--gold);
+            color: #080808;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 13px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .img-upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .img-upload-area:hover {
+            border-color: var(--gold);
+        }
+        .img-upload-area input[type='file'] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+        .img-preview {
+            width: 100%;
+            height: 160px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 12px;
+            background: var(--bg3);
+        }
+        .img-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .upload-hint {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 0 24px;
+        }
+        .text-gold {
+            color: var(--gold);
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.3;
+            margin: 0 auto 12px;
+        }
+        .toast {
+            position: fixed;
+            bottom: calc(var(--bot-h) + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 13px;
+            padding: 12px 20px;
+            border-radius: 100px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            z-index: 9998;
+            white-space: nowrap;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast.success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+        .toast.error {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        /* Admin mode indicator */
+        .admin-indicator {
+            position: fixed;
+            top: var(--nav-h);
+            left: 0;
+            right: 0;
+            background: var(--danger);
+            color: #fff;
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 2px;
+            padding: 4px;
+            z-index: 899;
+            display: none;
+            text-transform: uppercase;
+        }
+        .admin-indicator.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── TOP NAV ─── -->
+    <nav id="top-nav">
+        <div class="nav-logo-area" id="logo-click-area" title="Barber Luis">
+         
+            <div class="nav-logo-img">
+               
+                <img src="logo-barberluis.png" alt="Logo Barber Luis" />
+              
+            </div>
+            <div class="nav-logo-text">
+                <span>Barber Luis</span>
+                <span>Barbería Premium</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="nav-btn-cita" onclick="showPage('appointment')">Cita</button>
+        </div>
+    </nav>
+
+    <!-- Admin mode indicator -->
+    <div class="admin-indicator" id="admin-indicator">🔧 Modo Admin Activo</div>
+
+    <!-- ─── BOTTOM NAV (sin Admin) ─── -->
+    <div id="bottom-nav">
+        <div class="bnav-item active" id="bnav-home" onclick="showPage('home')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Inicio
+        </div>
+        <div class="bnav-item" id="bnav-services" onclick="showPage('services')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M5 8h14M5 16h14"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+            Servicios
+        </div>
+        <div class="bnav-item" id="bnav-store" onclick="showPage('store')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            Tienda
+        </div>
+        <div class="bnav-item" id="bnav-appointment" onclick="showPage('appointment')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Citas
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ═══════════════════════════
+     PAGE: HOME
+    ═══════════════════════════ -->
+    <div class="page active" id="page-home">
+        <!-- Hero -->
+<div class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="3.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-tag">Barbería Profesional</div>
+        <h1 class="hero-title">El arte de<br /><em>lucir bien.</em></h1>
+        <p class="hero-sub">Más de 10 años perfeccionando cada corte. Tu imagen es nuestro oficio.</p>
+        <div class="hero-cta">
+            <button class="btn-primary" onclick="showPage('appointment')">Reservar Cita</button>
+            <button class="btn-outline" onclick="showPage('services')">Ver Servicios</button>
+        </div>
+    </div>
+</div>
+
+
+        <div class="carousel-section">
+            <div class="section-label" style="padding:0 24px;margin-bottom:16px;">Galería</div>
+            <div class="carousel-container" id="home-carousel">
+                <button class="carousel-arrow prev" onclick="carouselPrev()" aria-label="Anterior">◀</button>
+                <button class="carousel-arrow next" onclick="carouselNext()" aria-label="Siguiente">▶</button>
+                <div class="carousel-track" id="carousel-track"></div>
+                <div class="carousel-dots" id="carousel-dots"></div>
+            </div>
+        </div>
+
+        <!-- About -->
+        <div class="about">
+            <div class="section-label">Sobre Mí</div>
+            <h2 class="about-title">Precisión, <strong>estilo</strong> y carácter</h2>
+            <div class="about-img">
+                <img src="2.jpeg" alt="Barber Luis" />
+            </div>
+            <p class="about-body">
+                Soy Luis, barbero con más de una década de experiencia transformando estilos. Cada cliente que entra a mi
+                silla recibe atención personalizada: escucho, analizo y ejecuto el corte perfecto para su tipo de cabello,
+                rostro y personalidad.<br /><br />
+                Mi trabajo no termina con el corte. Termina cuando ves tu reflejo y sonríes. Eso es lo que me mueve cada día.
+            </p>
+        </div>
+
+        <!-- Magazine Feature -->
+        <div class="mag-feature">
+            <div class="mag-feature-img">
+                <img src="fondohero.png" alt="" />
+            </div>
+            <div class="mag-feature-body">
+                <div class="mag-issue">✦ Filosofía</div>
+                <h3 class="mag-title">El detalle lo es todo</h3>
+                <p class="mag-body">
+                    En Barber Luis, cada visita es una experiencia. Desde la consulta inicial hasta el acabado final con
+                    productos premium, cuidamos cada milímetro. No cortamos cabello — esculpimos identidades.
+                </p>
+            </div>
+        </div>
+
+        <!-- Services Preview -->
+        <div class="services-preview">
+            <div class="section-label">Servicios</div>
+            <div id="home-services-preview" class="services-preview-grid"></div>
+            <button onclick="showPage('services')" class="btn-outline"
+            style="margin-top:16px;width:100%;text-align:center;display:block;padding:14px;">
+            Ver todos los servicios →
+        </button>
+    </div>
+
+    <!-- ⭐ RESEÑAS REALES -->
+    <div class="reviews-section" id="reviews-section">
+        <div class="section-label">Reseñas de Clientes</div>
+        <!-- Formulario para dejar reseña -->
+        <div class="review-form-card" id="review-form-card">
+            <h3 class="review-form-title">Deja tu Reseña</h3>
+            <div class="form-group">
+                <label class="form-label">Tu Nombre</label>
+                <input type="text" id="review-name" placeholder="Ej. Carlos M." maxlength="40" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Calificación</label>
+                <div class="star-rating-input" id="star-rating-input">
+                    <input type="radio" id="star5" name="review-stars" value="5" /><label for="star5">★</label>
+                    <input type="radio" id="star4" name="review-stars" value="4" /><label for="star4">★</label>
+                    <input type="radio" id="star3" name="review-stars" value="3" /><label for="star3">★</label>
+                    <input type="radio" id="star2" name="review-stars" value="2" /><label for="star2">★</label>
+                    <input type="radio" id="star1" name="review-stars" value="1" /><label for="star1">★</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Tu Comentario</label>
+                <textarea id="review-text" placeholder="Cuéntanos tu experiencia en Barber Luis..." maxlength="500"></textarea>
+            </div>
+            <button class="btn-submit-review" onclick="submitReview()">Publicar Reseña ✦</button>
+        </div>
+        <!-- Lista de reseñas -->
+        <div class="reviews-list" id="reviews-list"></div>
+    </div>
+</div><!-- /page-home -->
+
+<!-- ═══════════════════════════
+     PAGE: SERVICES
+═══════════════════════════ -->
+<div class="page" id="page-services">
+    <div class="page-header">
+        <div class="page-header-label">Menú de Servicios</div>
+        <h1 class="page-header-title">Nuestros<br /><em>Servicios</em></h1>
+        <p class="page-header-sub">Desde el corte más clásico hasta el paquete más completo. Calidad garantizada.</p>
+    </div>
+    <div class="services-list" id="services-list"></div>
+</div>
+
+<!-- ═══════════════════════════
+     PAGE: STORE (Tienda Treinta embedida)
+═══════════════════════════ -->
+<div class="page" id="page-store">
+    <div class="store-back-bar">
+        <button class="btn-back-store" onclick="showPage('home')">
+            ← Volver a Inicio
+        </button>
+        <a class="store-external-link" href="https://catalogo.treinta.co/barberluis" target="_blank" rel="noopener">
+            Abrir en nueva pestaña ↗
+        </a>
+    </div>
+    <div class="store-iframe-wrapper">
+        <iframe
+        src="https://catalogo.treinta.co/barberluis"
+        title="Tienda Barber Luis en Treinta"
+        allow="payment"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation">
+    </iframe>
+</div>
+</div>
+
+<!-- ═══════════════════════════
+     PAGE: APPOINTMENT
+═══════════════════════════ -->
+<div class="page" id="page-appointment">
+    <div class="page-header">
+        <div class="page-header-label">Reservaciones</div>
+        <h1 class="page-header-title">Agenda tu<br /><em>Cita</em></h1>
+    </div>
+    <div class="appointment-body">
+        <div class="appt-wa-banner">
+            <svg class="appt-wa-icon" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="24" fill="rgba(255,255,255,.1)" />
+                <path d="M24 8C15.163 8 8 15.163 8 24c0 2.9.78 5.62 2.14 7.97L8 40l8.34-2.1A15.93 15.93 0 0024 40c8.837 0 16-7.163 16-16S32.837 8 24 8z" fill="white" />
+                <path d="M32.5 28.1c-.4-.2-2.4-1.2-2.77-1.33-.37-.13-.64-.2-.9.2-.27.4-1.03 1.33-1.27 1.6-.23.27-.47.3-.87.1-.4-.2-1.68-.62-3.2-1.98-1.18-1.05-1.98-2.35-2.2-2.75-.23-.4-.02-.62.17-.82.18-.18.4-.47.6-.7.2-.23.27-.4.4-.67.13-.27.07-.5-.03-.7-.1-.2-.9-2.17-1.23-2.97-.32-.78-.65-.67-.9-.68h-.77c-.27 0-.7.1-1.07.5-.37.4-1.4 1.37-1.4 3.33 0 1.97 1.43 3.87 1.63 4.13.2.27 2.8 4.27 6.8 5.98.95.41 1.7.65 2.28.83.96.3 1.83.26 2.52.16.77-.11 2.37-.97 2.7-1.9.33-.93.33-1.73.23-1.9-.1-.17-.37-.27-.77-.47z" fill="#128c7e" />
+            </svg>
+            <div class="appt-wa-title">Contáctame directo</div>
+            <p class="appt-wa-sub">La forma más rápida de reservar es vía WhatsApp. Respondo en minutos.</p>
+            <a class="btn-whatsapp" href="https://wa.me/50494996113?text=Hola%20Luis!%20Me%20gustaría%20reservar%20una%20cita%20en%20la%20barbería." target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                Escribir por WhatsApp
+            </a>
+        </div>
+        <div class="appt-info">
+            <div class="appt-info-card">
+                <div class="appt-info-icon">🕐</div>
+                <div class="appt-info-label">Horario</div>
+                <div class="appt-info-val">Lun – Sáb<br />8am – 8pm</div>
+                <div class="appt-info-val">Dom<br />8am – 5pm</div>
+            </div>
+            <div class="appt-info-card">
+                <div class="appt-info-icon">📍</div>
+                <div class="appt-info-label">Ubicación</div>
+                <div class="appt-info-val"> Plaza San Miguel,Villanueva Cortés</div>
+            </div>
+        </div>
+        <div class="appt-form-section">
+            <h3 class="appt-form-title">Enviar Mensaje</h3>
+            <div class="form-group">
+                <label class="form-label">Tu Nombre</label>
+                <input type="text" id="appt-name" placeholder="Ej. Juan García" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Servicio</label>
+                <select id="appt-service">
+                    <option value="">— Selecciona un servicio —</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Fecha y Hora Preferida</label>
+                <input type="datetime-local" id="appt-datetime" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Mensaje (opcional)</label>
+                <textarea id="appt-message" placeholder="¿Algo específico que quieras? Cuéntame..."></textarea>
+            </div>
+            <button class="btn-send" onclick="sendWhatsApp()">Enviar por WhatsApp 📱</button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════
+     PAGE: ADMIN (oculta del nav público)
+═══════════════════════════ -->
+<div class="page" id="page-admin">
+    <div class="admin-login" id="admin-login">
+        <div class="admin-login-logo">✦ Barber Luis ✦<br />Panel de Control</div>
+        <h2 class="admin-login-title">Acceso Administrativo</h2>
+        <div class="login-box">
+            <div class="login-err" id="login-err">Usuario o contraseña incorrectos.</div>
+            <div class="form-group">
+                <label class="form-label">Usuario</label>
+                <input type="text" id="login-user" placeholder="barberluis07" autocomplete="username" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Contraseña</label>
+                <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password"
+                onkeydown="if(event.key==='Enter') doLogin()" />
+            </div>
+            <button class="btn-login" onclick="doLogin()">Ingresar</button>
+            <p class="login-ip-info" id="login-ip-info"></p>
+        </div>
+    </div>
+
+    <div class="admin-dash" id="admin-dash">
+        <div class="admin-topbar">
+            <span class="admin-topbar-title">Panel Admin</span>
+            <span class="admin-topbar-ip" id="admin-ip-display"></span>
+            <button class="btn-logout" onclick="doLogout()">Cerrar Sesión</button>
+        </div>
+        <div class="admin-tabs">
+            <div class="admin-tab active" id="tab-products" onclick="adminTab('products')">Productos</div>
+            <div class="admin-tab" id="tab-services" onclick="adminTab('services')">Servicios</div>
+            <div class="admin-tab" id="tab-reviews" onclick="adminTab('reviews')">Reseñas</div>
+        </div>
+        <div class="admin-content">
+            <div class="admin-section active" id="sec-products">
+                <button class="admin-add-btn" onclick="openModal('product', null)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Agregar Producto
+                </button>
+                <div class="admin-list" id="admin-products-list"></div>
+            </div>
+            <div class="admin-section" id="sec-services">
+                <button class="admin-add-btn" onclick="openModal('service', null)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Agregar Servicio
+                </button>
+                <div class="admin-list" id="admin-services-list"></div>
+            </div>
+            <div class="admin-section" id="sec-reviews">
+                <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Gestiona las reseñas publicadas por los clientes. Puedes eliminar las que sean inapropiadas.</p>
+                <div class="admin-list" id="admin-reviews-list"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════
+     MODAL
+═══════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Agregar</h3>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div id="modal-body"></div>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+            <button class="btn-save" id="modal-save-btn" onclick="saveItem()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ═══════════════════════════════════════════════════
+    // DATA
+    // ═══════════════════════════════════════════════════
+    const ADMIN_USER = 'barberluis07';
+    const ADMIN_PASS = 'admin1234%';
+    const TREINTA_URL = 'https://catalogo.treinta.co/barberluis';
+
+   const carouselItems = [
+    { type: 'image', src: '6.jpeg' },
+    { type: 'video', src: '5.mp4' },
+    { type: 'image', src: '7.jpeg' },
+    { type: 'video', src: '4.mp4' },
+    { type: 'image', src: '1.jpeg' }
+];
+    const defaultServices = [
+        { id: 's1', name: 'Corte Normal', price: 150,
+            desc: 'Corte clásico adaptado a tu estilo. Incluye lavado y acabado con secador.',
+            img: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80' },
+        { id: 's2', name: 'Barba', price: 100,
+            desc: 'Perfilado y arreglo de barba con navaja, aceite y toalla caliente.',
+            img: 'https://images.unsplash.com/photo-1534297635766-a262cdcb8ee4?w=600&q=80' },
+        { id: 's3', name: 'Corte y Barba', price: 220,
+            desc: 'Combinación perfecta: corte completo más arreglo de barba con tratamiento.',
+            img: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80' },
+        { id: 's4', name: 'Limpieza Facial', price: 180,
+            desc: 'Limpieza profunda del rostro con productos especializados. Piel renovada.',
+            img: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80' },
+        { id: 's5', name: 'Paquete Completo', price: 350,
+            desc: 'Corte + Barba + Limpieza Facial. La experiencia Barber Luis al máximo.',
+            img: 'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=600&q=80' }
+    ];
+
+    const defaultProducts = [
+        { id: 'p1', name: 'Cera Mate Fuerte', brand: 'Pro Series', price: 180,
+            desc: 'Control máximo con acabado mate. Ideal para looks estructurados.',
+            img: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&q=80', badge: 'Top Seller' },
+        { id: 'p2', name: 'Gel Fijador Extra', brand: 'Classic Hold', price: 120,
+            desc: 'Fijación ultra fuerte para todo el día sin residuos.',
+            img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&q=80', badge: '' },
+        { id: 'p3', name: 'Spray de Brillo', brand: 'Shine Pro', price: 150,
+            desc: 'Acabado brillante y suave. Protección UV incluida.',
+            img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80', badge: '' },
+        { id: 'p4', name: 'Pomada Clásica', brand: 'Heritage', price: 200,
+            desc: 'Fórmula clásica con fragancia masculina. Fijación flexible.',
+            img: 'https://images.unsplash.com/photo-1562887245-e6428f76d5c0?w=400&q=80', badge: 'Nuevo' },
+        { id: 'p5', name: 'Aceite para Barba', brand: 'Beard Co.', price: 160,
+            desc: 'Nutre y suaviza la barba. Con aceite de argán y vitamina E.',
+            img: 'https://images.unsplash.com/photo-1593163853666-f6ecdce5f2ee?w=400&q=80', badge: '' },
+        { id: 'p6', name: 'Bálsamo de Barba', brand: 'Beard Co.', price: 140,
+            desc: 'Hidratación profunda y control de la barba todo el día.',
+            img: 'https://images.unsplash.com/photo-1556228852-6d35a585d566?w=400&q=80', badge: '' }
+    ];
+
+    function loadData() {
+        const sv = localStorage.getItem('bl_services');
+        const pd = localStorage.getItem('bl_products');
+        const rv = localStorage.getItem('bl_reviews');
+        window.services = sv ? JSON.parse(sv) : JSON.parse(JSON.stringify(defaultServices));
+        window.products = pd ? JSON.parse(pd) : JSON.parse(JSON.stringify(defaultProducts));
+        window.reviews = rv ? JSON.parse(rv) : [];
+    }
+
+    function saveData() {
+        localStorage.setItem('bl_services', JSON.stringify(window.services));
+        localStorage.setItem('bl_products', JSON.stringify(window.products));
+    }
+
+    function saveReviews() {
+        localStorage.setItem('bl_reviews', JSON.stringify(window.reviews));
+    }
+
+    // ═══════════════════════════════════════════════════
+    // SESSION PERSISTENCE + IP
+    // ═══════════════════════════════════════════════════
+    let isLoggedIn = false;
+    let adminIP = '';
+
+    function checkSavedSession() {
+        const saved = localStorage.getItem('bl_admin_session');
+        if (saved) {
+            try {
+                const sessionData = JSON.parse(saved);
+                if (sessionData.loggedIn && sessionData.user === ADMIN_USER) {
+                    isLoggedIn = true;
+                    adminIP = sessionData.ip || 'IP no registrada';
+                    showAdminDash();
+                }
+            } catch (e) {
+                localStorage.removeItem('bl_admin_session');
+            }
+        }
+        updateAdminIndicator();
+    }
+
+    async function fetchIP() {
+        try {
+            const resp = await fetch('https://api.ipify.org?format=json');
+            const data = await resp.json();
+            return data.ip;
+        } catch (e) {
+            return 'IP desconocida';
+        }
+    }
+
+    async function doLogin() {
+        const u = document.getElementById('login-user').value;
+        const p = document.getElementById('login-pass').value;
+        const err = document.getElementById('login-err');
+        if (u === ADMIN_USER && p === ADMIN_PASS) {
+            isLoggedIn = true;
+            adminIP = await fetchIP();
+            localStorage.setItem('bl_admin_session', JSON.stringify({
+                loggedIn: true,
+                user: ADMIN_USER,
+                ip: adminIP,
+                timestamp: Date.now()
+            }));
+            err.style.display = 'none';
+            showAdminDash();
+            updateAdminIndicator();
+            showToast('Sesión iniciada · IP: ' + adminIP, 'success');
+        } else {
+            err.style.display = 'block';
+        }
+    }
+
+    function doLogout() {
+        isLoggedIn = false;
+        adminIP = '';
+        localStorage.removeItem('bl_admin_session');
+        document.getElementById('admin-login').style.display = '';
+        document.getElementById('admin-dash').classList.remove('visible');
+        document.getElementById('login-user').value = '';
+        document.getElementById('login-pass').value = '';
+        document.getElementById('login-err').style.display = 'none';
+        updateAdminIndicator();
+        document.getElementById('reviews-section')?.classList.remove('admin-mode');
+        renderReviews();
+        showToast('Sesión cerrada', 'success');
+    }
+
+    function showAdminDash() {
+        document.getElementById('admin-login').style.display = 'none';
+        const dash = document.getElementById('admin-dash');
+        dash.classList.add('visible');
+        document.getElementById('admin-ip-display').textContent = 'IP: ' + adminIP;
+        renderAdminProducts();
+        renderAdminServices();
+        renderAdminReviews();
+    }
+
+    function updateAdminIndicator() {
+        const indicator = document.getElementById('admin-indicator');
+        if (isLoggedIn) {
+            indicator.classList.add('visible');
+            document.getElementById('reviews-section')?.classList.add('admin-mode');
+        } else {
+            indicator.classList.remove('visible');
+            document.getElementById('reviews-section')?.classList.remove('admin-mode');
+        }
+    }
+
+    // ═══════════════════════════════════════════════════
+    // SECRET ADMIN ACCESS (triple tap en el logo)
+    // ═══════════════════════════════════════════════════
+    let logoTapCount = 0;
+    let logoTapTimer = null;
+    document.getElementById('logo-click-area').addEventListener('click', function(e) {
+        logoTapCount++;
+        if (logoTapTimer) clearTimeout(logoTapTimer);
+        if (logoTapCount >= 3) {
+            logoTapCount = 0;
+            showPage('admin');
+            if (isLoggedIn) {
+                showAdminDash();
+            }
+            showToast('Acceso al panel de administración', 'success');
+        } else {
+            logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 800);
+        }
+    });
+
+    // ═══════════════════════════════════════════════════
+    // NAVIGATION
+    // ═══════════════════════════════════════════════════
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
+        const pageEl = document.getElementById('page-' + id);
+        if (pageEl) pageEl.classList.add('active');
+        const bn = document.getElementById('bnav-' + id);
+        if (bn) bn.classList.add('active');
+        window.scrollTo(0, 0);
+        if (id === 'store') { /* iframe ya carga */ }
+        if (id === 'services') renderServices();
+        if (id === 'appointment') populateServiceSelect();
+        if (id === 'home') { renderHomePreviews();
+            buildCarousel();
+            renderReviews(); }
+        if (id === 'admin') {
+            if (isLoggedIn) showAdminDash();
+            document.getElementById('login-ip-info').textContent = 'Tu IP: ' + (adminIP || 'Cargando...');
+        }
+        updateAdminIndicator();
+    }
+
+    // ═══════════════════════════════════════════════════
+    // HOME
+    // ═══════════════════════════════════════════════════
+    function renderHomePreviews() {
+        const el = document.getElementById('home-services-preview');
+        el.innerHTML = window.services.slice(0, 5).map(s => `
+        <div class="sp-row" onclick="showPage('services')">
+        <span class="sp-name">${s.name}</span>
+        <span class="sp-price">L. ${s.price}</span>
+        </div>
+        `).join('');
+    }
+
+    // ═══════════════════════════════════════════════════
+    // CARRUSEL
+    // ═══════════════════════════════════════════════════
+
+    let carouselIndex = 0;
+
+  function buildCarousel() {
+    const track = document.getElementById('carousel-track');
+    const dots = document.getElementById('carousel-dots');
+    if (!track || !dots) return;
+
+    track.innerHTML = carouselItems.map(item => {
+        if (item.type === 'video') {
+            return `
+            <div class="carousel-slide">
+                <video autoplay muted loop playsinline>
+                    <source src="${item.src}" type="video/mp4" />
+                </video>
+            </div>`;
+        } else {
+            return `
+            <div class="carousel-slide">
+                <img src="${item.src}" alt="Galería Barber Luis" loading="lazy"/>
+            </div>`;
+        }
+    }).join('');
+
+    dots.innerHTML = carouselItems.map((_, i) => `
+        <div class="carousel-dot${i === 0 ? ' active' : ''}" onclick="carouselGoTo(${i})"></div>
+    `).join('');
+
+    carouselIndex = 0;
+    updateCarouselPosition();
+}
+
+    function updateCarouselPosition() {
+        const track = document.getElementById('carousel-track');
+        const dots = document.querySelectorAll('.carousel-dot');
+        if (!track) return;
+        track.style.transform = `translateX(-${carouselIndex * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === carouselIndex));
+    }
+function carouselNext() {
+    carouselIndex = (carouselIndex + 1) % carouselItems.length;  // ✅ cambiado
+    updateCarouselPosition();
+}
+
+function carouselPrev() {
+    carouselIndex = (carouselIndex - 1 + carouselItems.length) % carouselItems.length;  // ✅ cambiado
+    updateCarouselPosition();
+}
+
+    function carouselGoTo(idx) {
+        carouselIndex = idx;
+        updateCarouselPosition();
+    }
+
+    // Auto-advance cada 5s
+    let carouselInterval = null;
+
+    function startCarouselAuto() {
+        if (carouselInterval) clearInterval(carouselInterval);
+        carouselInterval = setInterval(() => {
+            if (document.getElementById('page-home').classList.contains('active')) {
+                carouselNext();
+            }
+        }, 5000);
+    }
+    function pauseAllCarouselVideos() {
+    const videos = document.querySelectorAll('.carousel-slide video');
+    videos.forEach(v => v.pause());
+}
+
+function playCurrentCarouselVideo() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const currentSlide = slides[carouselIndex];
+    const video = currentSlide?.querySelector('video');
+    if (video) video.play();
+}
+
+function updateCarouselPosition() {
+    const track = document.getElementById('carousel-track');
+    const dots = document.querySelectorAll('.carousel-dot');
+    if (!track) return;
+    track.style.transform = `translateX(-${carouselIndex * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === carouselIndex));
+    pauseAllCarouselVideos();
+    playCurrentCarouselVideo();
+}
+
+    // ═══════════════════════════════════════════════════
+    // SERVICES
+    // ═══════════════════════════════════════════════════
+    function renderServices() {
+        const el = document.getElementById('services-list');
+        el.innerHTML = window.services.map(s => `
+        <div class="service-card">
+        <div class="service-card-img">
+        <img src="${s.img || 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80'}" alt="${s.name}" loading="lazy"/>
+        </div>
+        <div class="service-card-body">
+        <div class="service-card-name">${s.name}</div>
+        <p class="service-card-desc">${s.desc || ''}</p>
+        <div class="service-card-footer">
+        <span class="service-price">L. ${s.price}</span>
+        <button class="btn-book" onclick="bookService('${s.name}')">Reservar</button>
+        </div>
+        </div>
+        </div>
+        `).join('');
+    }
+
+    function bookService(name) {
+        showPage('appointment');
+        setTimeout(() => {
+            const sel = document.getElementById('appt-service');
+            for (let i = 0; i < sel.options.length; i++) {
+                if (sel.options[i].value === name) { sel.selectedIndex = i; break; }
+            }
+        }, 100);
+    }
+
+    // ═══════════════════════════════════════════════════
+    // APPOINTMENT
+    // ═══════════════════════════════════════════════════
+    function populateServiceSelect() {
+        const sel = document.getElementById('appt-service');
+        sel.innerHTML = '<option value="">— Selecciona un servicio —</option>' +
+            window.services.map(s => `<option value="${s.name}">${s.name} — L. ${s.price}</option>`).join(
+                '');
+    }
+
+    function sendWhatsApp() {
+        const name = document.getElementById('appt-name').value.trim();
+        const service = document.getElementById('appt-service').value;
+        const dt = document.getElementById('appt-datetime').value;
+        const msg = document.getElementById('appt-message').value.trim();
+        if (!name) { showToast('Por favor ingresa tu nombre', 'error'); return; }
+        if (!service) { showToast('Selecciona un servicio', 'error'); return; }
+        let text =
+            `¡Hola Luis! Me llamo *${name}* y quisiera reservar una cita.\n\n🔧 *Servicio:* ${service}`;
+        if (dt) {
+            const d = new Date(dt);
+            text +=
+                `\n📅 *Fecha/Hora:* ${d.toLocaleDateString('es-HN', { weekday: 'long', day: 'numeric', month: 'long' })} a las ${d.toLocaleTimeString('es-HN', { hour: '2-digit', minute: '2-digit' })}`;
+        }
+        if (msg) text += `\n💬 *Nota:* ${msg}`;
+        window.open('https://wa.me/50494996113?text=' + encodeURIComponent(text), '_blank');
+    }
+
+    // ═══════════════════════════════════════════════════
+    // REVIEWS / RESEÑAS
+    // ═══════════════════════════════════════════════════
+    function submitReview() {
+        const name = document.getElementById('review-name').value.trim();
+        const text = document.getElementById('review-text').value.trim();
+        const starsRadio = document.querySelector('input[name="review-stars"]:checked');
+        if (!name) { showToast('Ingresa tu nombre', 'error'); return; }
+        if (!starsRadio) { showToast('Selecciona una calificación', 'error'); return; }
+        if (!text) { showToast('Escribe tu comentario', 'error'); return; }
+        const stars = parseInt(starsRadio.value);
+        const review = {
+            id: 'r' + Date.now(),
+            name,
+            stars,
+            text,
+            date: new Date().toISOString(),
+            ip: adminIP || 'IP no registrada'
+        };
+        window.reviews.unshift(review);
+        saveReviews();
+        renderReviews();
+        // Limpiar formulario
+        document.getElementById('review-name').value = '';
+        document.getElementById('review-text').value = '';
+        const checkedStar = document.querySelector('input[name="review-stars"]:checked');
+        if (checkedStar) checkedStar.checked = false;
+        showToast('¡Reseña publicada! Gracias por tu opinión ✦', 'success');
+    }
+
+    function deleteReview(idx) {
+        if (!isLoggedIn) return;
+        if (!confirm('¿Eliminar esta reseña?')) return;
+        window.reviews.splice(idx, 1);
+        saveReviews();
+        renderReviews();
+        if (document.getElementById('page-admin').classList.contains('active')) renderAdminReviews();
+        showToast('Reseña eliminada', 'success');
+    }
+
+    function renderReviews() {
+        const el = document.getElementById('reviews-list');
+        if (!el) return;
+        if (!window.reviews.length) {
+            el.innerHTML =
+                '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Sé el primero en dejar una reseña.</div>';
+            return;
+        }
+        el.innerHTML = window.reviews.map((r, i) => `
+        <div class="review-card">
+        ${isLoggedIn ? `<button class="review-delete-btn" style="display:flex;" onclick="deleteReview(${i})" title="Eliminar reseña">✕</button>` : ''}
+        <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+        <p class="review-text">"${r.text.replace(/"/g, '&quot;')}"</p>
+        <div class="review-author">— ${r.name}</div>
+        <div class="review-date">${new Date(r.date).toLocaleDateString('es-HN', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
+        </div>
+        `).join('');
+    }
+
+    function renderAdminReviews() {
+        const el = document.getElementById('admin-reviews-list');
+        if (!el) return;
+        if (!window.reviews.length) {
+            el.innerHTML =
+                '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>No hay reseñas aún.</div>';
+            return;
+        }
+        el.innerHTML = window.reviews.map((r, i) => `
+        <div class="admin-item">
+        <div class="admin-item-info">
+        <div class="admin-item-name">${r.name} — ${'★'.repeat(r.stars)}</div>
+        <div class="admin-item-price" style="font-size:11px;color:var(--muted);">${r.text.substring(0, 80)}${r.text.length > 80 ? '...' : ''}</div>
+        <div style="font-size:10px;color:var(--muted);">${new Date(r.date).toLocaleDateString('es-HN')} · IP: ${r.ip || 'N/A'}</div>
+        </div>
+        <div class="admin-item-actions">
+        <button class="btn-del" onclick="deleteReview(${i});renderAdminReviews();" title="Eliminar reseña">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>
+        </div>
+        </div>
+        `).join('');
+    }
+
+    // ═══════════════════════════════════════════════════
+    // ADMIN TABS
+    // ═══════════════════════════════════════════════════
+    function adminTab(tab) {
+        document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        document.getElementById('sec-' + tab).classList.add('active');
+        if (tab === 'reviews') renderAdminReviews();
+    }
+
+    // ═══════════════════════════════════════════════════
+    // ADMIN RENDER
+    // ═══════════════════════════════════════════════════
+    function renderAdminProducts() {
+        const el = document.getElementById('admin-products-list');
+        if (!window.products.length) {
+            el.innerHTML =
+                '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>No hay productos aún.</div>';
+            return;
+        }
+        el.innerHTML = window.products.map((p, i) => `
+        <div class="admin-item">
+        <div class="admin-item-img">
+        ${p.img ? `<img src="${p.img}" alt=""/>` : '<div style="width:100%;height:100%;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:20px">📦</div>'}
+        </div>
+        <div class="admin-item-info">
+        <div class="admin-item-name">${p.name}</div>
+        <div class="admin-item-price">L. ${p.price} · ${p.brand || 'Sin marca'}</div>
+        </div>
+        <div class="admin-item-actions">
+        <button class="btn-edit" onclick="openModal('product',${i})">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="btn-del" onclick="deleteItem('product',${i})">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>
+        </div>
+        </div>
+        `).join('');
+    }
+
+    function renderAdminServices() {
+        const el = document.getElementById('admin-services-list');
+        if (!window.services.length) {
+            el.innerHTML =
+                '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>No hay servicios aún.</div>';
+            return;
+        }
+        el.innerHTML = window.services.map((s, i) => `
+        <div class="admin-item">
+        <div class="admin-item-img">
+        ${s.img ? `<img src="${s.img}" alt=""/>` : '<div style="width:100%;height:100%;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:20px">✂️</div>'}
+        </div>
+        <div class="admin-item-info">
+        <div class="admin-item-name">${s.name}</div>
+        <div class="admin-item-price">L. ${s.price}</div>
+        </div>
+        <div class="admin-item-actions">
+        <button class="btn-edit" onclick="openModal('service',${i})">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="btn-del" onclick="deleteItem('service',${i})">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>
+        </div>
+        </div>
+        `).join('');
+    }
+
+    // ═══════════════════════════════════════════════════
+    // MODAL
+    // ═══════════════════════════════════════════════════
+    let modalType = null;
+    let modalIndex = null;
+    let pendingImgBase64 = null;
+
+    function openModal(type, idx) {
+        modalType = type;
+        modalIndex = idx;
+        pendingImgBase64 = null;
+        const overlay = document.getElementById('modal-overlay');
+        const title = document.getElementById('modal-title');
+        const body = document.getElementById('modal-body');
+        const isEdit = idx !== null;
+        title.textContent = isEdit ? `Editar ${type === 'product' ? 'Producto' : 'Servicio'}` :
+            `Nuevo ${type === 'product' ? 'Producto' : 'Servicio'}`;
+        const item = isEdit ? (type === 'product' ? window.products[idx] : window.services[idx]) : {};
+        const currentImg = item.img || '';
+        if (type === 'product') {
+            body.innerHTML = `
+            <div class="form-group"><label class="form-label">Nombre del Producto</label><input id="m-name" type="text" value="${item.name||''}" placeholder="Ej. Cera Mate"/></div>
+            <div class="form-group"><label class="form-label">Marca</label><input id="m-brand" type="text" value="${item.brand||''}" placeholder="Ej. Pro Series"/></div>
+            <div class="form-group"><label class="form-label">Precio (L.)</label><input id="m-price" type="number" value="${item.price||''}" placeholder="150"/></div>
+            <div class="form-group"><label class="form-label">Descripción</label><textarea id="m-desc">${item.desc||''}</textarea></div>
+            <div class="form-group"><label class="form-label">Etiqueta (opcional)</label><input id="m-badge" type="text" value="${item.badge||''}" placeholder="Ej. Nuevo, Top Seller"/></div>
+            <div class="form-group"><label class="form-label">Foto</label>
+            <div class="img-upload-area" id="upload-area"><input type="file" accept="image/*" onchange="handleImgUpload(event)"/>📷 Toca para subir foto<p class="upload-hint">O pega URL abajo</p></div>
+            ${currentImg ? `<div class="img-preview"><img id="img-preview-el" src="${currentImg}" alt=""/></div>` : `<div class="img-preview" id="img-preview-box" style="display:none"><img id="img-preview-el" src="" alt=""/></div>`}
+            <input id="m-img-url" type="text" value="${currentImg}" placeholder="https://..." style="margin-top:8px" oninput="previewFromUrl(this.value)"/></div>
+            `;
+        } else {
+            body.innerHTML = `
+            <div class="form-group"><label class="form-label">Nombre del Servicio</label><input id="m-name" type="text" value="${item.name||''}" placeholder="Ej. Corte Normal"/></div>
+            <div class="form-group"><label class="form-label">Precio (L.)</label><input id="m-price" type="number" value="${item.price||''}" placeholder="150"/></div>
+            <div class="form-group"><label class="form-label">Descripción</label><textarea id="m-desc">${item.desc||''}</textarea></div>
+            <div class="form-group"><label class="form-label">Foto</label>
+            <div class="img-upload-area"><input type="file" accept="image/*" onchange="handleImgUpload(event)"/>📷 Toca para subir foto<p class="upload-hint">O pega URL abajo</p></div>
+            ${currentImg ? `<div class="img-preview"><img id="img-preview-el" src="${currentImg}" alt=""/></div>` : `<div class="img-preview" id="img-preview-box" style="display:none"><img id="img-preview-el" src="" alt=""/></div>`}
+            <input id="m-img-url" type="text" value="${currentImg}" placeholder="https://..." style="margin-top:8px" oninput="previewFromUrl(this.value)"/></div>
+            `;
+        }
+        overlay.classList.add('open');
+    }
+
+    function handleImgUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            pendingImgBase64 = ev.target.result;
+            let preview = document.getElementById('img-preview-el');
+            let box = document.getElementById('img-preview-box');
+            if (!preview) {
+                const div = document.createElement('div');
+                div.className = 'img-preview';
+                div.id = 'img-preview-box';
+                const img = document.createElement('img');
+                img.id = 'img-preview-el';
+                div.appendChild(img);
+                document.getElementById('upload-area')?.after(div);
+                preview = img;
+            }
+            if (box) box.style.display = '';
+            if (preview) { preview.src = pendingImgBase64; }
+            const urlInput = document.getElementById('m-img-url');
+            if (urlInput) urlInput.value = '';
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function previewFromUrl(url) {
+        pendingImgBase64 = null;
+        let preview = document.getElementById('img-preview-el');
+        let box = document.getElementById('img-preview-box');
+        if (preview) { preview.src = url; }
+        if (box) box.style.display = url ? '' : 'none';
+    }
+
+    function closeModal() {
+        document.getElementById('modal-overlay').classList.remove('open');
+        modalType = null;
+        modalIndex = null;
+        pendingImgBase64 = null;
+    }
+
+    function closeModalOutside(e) {
+        if (e.target === document.getElementById('modal-overlay')) closeModal();
+    }
+
+    function saveItem() {
+        const name = document.getElementById('m-name')?.value.trim();
+        const price = parseFloat(document.getElementById('m-price')?.value);
+        const desc = document.getElementById('m-desc')?.value.trim();
+        const imgUrl = document.getElementById('m-img-url')?.value.trim();
+        const img = pendingImgBase64 || imgUrl;
+        if (!name) { showToast('El nombre es requerido', 'error'); return; }
+        if (!price || price <= 0) { showToast('Precio inválido', 'error'); return; }
+        if (modalType === 'product') {
+            const brand = document.getElementById('m-brand')?.value.trim();
+            const badge = document.getElementById('m-badge')?.value.trim();
+            const obj = { id: 'p' + Date.now(), name, brand, price, desc, img, badge };
+            if (modalIndex !== null) { obj.id = window.products[modalIndex].id;
+                window.products[modalIndex] = obj; } else { window.products.push(obj); }
+            saveData();
+            renderAdminProducts();
+            showToast(modalIndex !== null ? 'Producto actualizado ✓' : 'Producto agregado ✓', 'success');
+        } else {
+            const obj = { id: 's' + Date.now(), name, price, desc, img };
+            if (modalIndex !== null) { obj.id = window.services[modalIndex].id;
+                window.services[modalIndex] = obj; } else { window.services.push(obj); }
+            saveData();
+            renderAdminServices();
+            renderServices();
+            renderHomePreviews();
+            populateServiceSelect();
+            showToast(modalIndex !== null ? 'Servicio actualizado ✓' : 'Servicio agregado ✓', 'success');
+        }
+        closeModal();
+    }
+
+    function deleteItem(type, idx) {
+        if (!confirm('¿Eliminar este elemento?')) return;
+        if (type === 'product') { window.products.splice(idx, 1);
+            saveData();
+            renderAdminProducts(); } else { window.services.splice(idx, 1);
+            saveData();
+            renderAdminServices();
+            renderServices();
+            renderHomePreviews(); }
+        showToast('Eliminado', 'success');
+    }
+
+    // ═══════════════════════════════════════════════════
+    // TOAST
+    // ═══════════════════════════════════════════════════
+    let toastTimeout;
+
+    function showToast(msg, type = '') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast ' + type;
+        clearTimeout(toastTimeout);
+        requestAnimationFrame(() => { t.classList.add('show'); });
+        toastTimeout = setTimeout(() => { t.classList.remove('show'); }, 2800);
+    }
+
+    // ═══════════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════════
+    loadData();
+    checkSavedSession();
+    renderHomePreviews();
+    buildCarousel();
+    renderReviews();
+    startCarouselAuto();
+    updateAdminIndicator();
+
+    // Mostrar IP en pantalla de login si ya hay sesión previa
+    if (adminIP) {
+        document.getElementById('login-ip-info').textContent = 'IP registrada: ' + adminIP;
+    }
+</script>
+</body>
+</html>
