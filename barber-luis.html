@@ -1949,22 +1949,6 @@ function carouselPrev() {
     updateCarouselPosition();
 }
 
-    function carouselGoTo(idx) {
-        carouselIndex = idx;
-        updateCarouselPosition();
-    }
-
-    // Auto-advance cada 5s
-    let carouselInterval = null;
-
-    function startCarouselAuto() {
-        if (carouselInterval) clearInterval(carouselInterval);
-        carouselInterval = setInterval(() => {
-            if (document.getElementById('page-home').classList.contains('active')) {
-                carouselNext();
-            }
-        }, 20000);
-    }
     function pauseAllCarouselVideos() {
     const videos = document.querySelectorAll('.carousel-slide video');
     videos.forEach(v => v.pause());
