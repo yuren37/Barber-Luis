@@ -1957,14 +1957,6 @@ function carouselPrev() {
     // Auto-advance cada 5s
     let carouselInterval = null;
 
-    function startCarouselAuto() {
-        if (carouselInterval) clearInterval(carouselInterval);
-        carouselInterval = setInterval(() => {
-            if (document.getElementById('page-home').classList.contains('active')) {
-                carouselNext();
-            }
-        }, 5000);
-    }
     function pauseAllCarouselVideos() {
     const videos = document.querySelectorAll('.carousel-slide video');
     videos.forEach(v => v.pause());
@@ -2355,7 +2347,7 @@ function updateCarouselPosition() {
     renderHomePreviews();
     buildCarousel();
     renderReviews();
-    startCarouselAuto();
+   
     updateAdminIndicator();
 
     // Mostrar IP en pantalla de login si ya hay sesión previa
